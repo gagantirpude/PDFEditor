@@ -1,12 +1,6 @@
 package com.gagan.pdf;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Scanner;
 
 class ConvertPDFToWord {
@@ -34,30 +28,21 @@ class ConvertPDFToWord {
         String wordFilePath = new File(directory, wordFileName).getAbsolutePath();
 
         try {
-            convertPDFToWord(pdfFilePath, wordFilePath);
-            System.out.println("PDF converted to Word successfully at " + wordFilePath);
-        } catch (IOException e) {
+            convertPDFToWordWithStyle(pdfFilePath, wordFilePath);
+            System.out.println("PDF converted to Word successfully with styles preserved at " + wordFilePath);
+        } catch (Exception e) {
             System.err.println("An error occurred while converting PDF to Word: " + e.getMessage());
         }
     }
 
-    public static void convertPDFToWord(String pdfFilePath, String wordFilePath) throws IOException {
-        try (PDDocument pdfDocument = PDDocument.load(new File(pdfFilePath));
-             XWPFDocument wordDocument = new XWPFDocument();
-             FileOutputStream outputStream = new FileOutputStream(wordFilePath)) {
+    public static void convertPDFToWordWithStyle(String pdfFilePath, String wordFilePath) throws Exception {
+        // Initialize the Aspose library (ensure  .PDF for Java is added to your dependencies)
+        com.aspose.pdf.Document pdfDocument = new com.aspose.pdf.Document(pdfFilePath);
 
-            // Extract text from each page of the PDF
-            PDFTextStripper textStripper = new PDFTextStripper();
-            String pdfText = textStripper.getText(pdfDocument);
+        // Convert PDF to Word with flow layout to preserve styles
+        pdfDocument.save(wordFilePath, com.aspose.pdf.SaveFormat.DocX);
 
-            // Write extracted text into the Word document
-            wordDocument.createParagraph().createRun().setText(pdfText);
-
-            // Save the Word document
-            wordDocument.write(outputStream);
-            System.out.println("PDF converted to Word successfully.");
-        } catch (Exception e) {
-            throw new IOException("Error during PDF to Word conversion: " + e.getMessage(), e);
-        }
+        // Clean up resources
+        pdfDocument.close();
     }
 }

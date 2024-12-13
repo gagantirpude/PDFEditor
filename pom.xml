@@ -39,6 +39,12 @@
             <version>2.20.0</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>com.aspose</groupId>-->
+<!--            <artifactId>aspose-pdf</artifactId>-->
+<!--            <version>23.12</version> &lt;!&ndash; Replace with the latest version &ndash;&gt;-->
+<!--        </dependency>-->
+
     </dependencies>
 
 </project>
