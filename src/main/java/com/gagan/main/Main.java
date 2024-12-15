@@ -1,5 +1,6 @@
-package com.gagan.pdf;
+package com.gagan.main;
 
+import com.gagan.operation.*;
 import java.util.Scanner;
 
 public class Main {
@@ -7,8 +8,10 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        // Entry Checking Loops
         while (true) {
             System.out.println("\nPDF Editor Options:");
+            System.out.println("0. Testing");
             System.out.println("1. Merge PDF Files");
             System.out.println("2. Split PDF File");
             System.out.println("3. Extract Pages from PDF");
@@ -22,13 +25,18 @@ public class Main {
             System.out.println("11. Convert PDF to LaTex");
             System.out.println("12. Convert PDF to EPUB");
             System.out.println("13. Convert PDF to Markdown");
-            System.out.println("14. Exit");
+            System.out.println("14. Convert PDF to Text");
+            System.out.println("15. Demo");
+            System.out.println("16. Exit");
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
             switch (choice) {
+                case 0:
+                    Test.convertOperation(scanner);
+                    break;
                 case 1:
                     MergePDF.mergeOperation(scanner);
                     break;
@@ -57,7 +65,7 @@ public class Main {
                     ConvertPDFToCSV.convertOperation(scanner);
                     break;
                 case 10:
-                    ConvertPDFToTXT.convertOperation(scanner);
+                    ConvertPDFToMobiXML.convertOperation(scanner);
                     break;
                 case 11:
                     ConvertPDFToLaTex.convertOperation(scanner);
@@ -69,6 +77,12 @@ public class Main {
                     ConvertPDFToMarkdown.convertOperation(scanner);
                     break;
                 case 14:
+                    ConvertPDFToTXT.convertOperation(scanner);
+                    break;
+                case 15:
+                    Demo.convertOperation(scanner);
+                    break;
+                case 16:
                     System.out.println("Exiting PDF Editor. Goodbye!");
                     return;
                 default:

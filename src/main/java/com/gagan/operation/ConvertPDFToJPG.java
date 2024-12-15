@@ -1,26 +1,16 @@
-package com.gagan.pdf;
+package com.gagan.operation;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 
-import org.apache.pdfbox.multipdf.PDFMergerUtility;
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
-import org.apache.pdfbox.text.PDFTextStripper;
-import com.aspose.pdf.*; // Aspose PDF library import
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
-class ConvertPDFToJPG {
+public class ConvertPDFToJPG {
     public static void convertOperation(Scanner scanner) {
         System.out.print("Enter the path of the PDF file: ");
         String pdfFilePath = scanner.nextLine();

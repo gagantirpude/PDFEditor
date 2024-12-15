@@ -1,9 +1,9 @@
-package com.gagan.pdf;
+package com.gagan.operation;
 
 import java.io.File;
 import java.util.Scanner;
 
-class ConvertPDFToWord {
+public class ConvertPDFToWord {
     public static void convertOperation(Scanner scanner) {
         System.out.print("Enter the path of the PDF file to convert: ");
         String pdfFilePath = scanner.nextLine();
@@ -25,7 +25,8 @@ class ConvertPDFToWord {
 
         System.out.print("Enter the output Word file name (including .docx extension): ");
         String wordFileName = scanner.nextLine();
-        String wordFilePath = new File(directory, wordFileName).getAbsolutePath();
+        String extension = ".docx";
+        String wordFilePath = new File(directory, wordFileName+extension).getAbsolutePath();
 
         try {
             convertPDFToWordWithStyle(pdfFilePath, wordFilePath);

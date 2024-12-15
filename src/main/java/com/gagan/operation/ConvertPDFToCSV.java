@@ -1,29 +1,15 @@
-package com.gagan.pdf;
+package com.gagan.operation;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-
-import org.apache.pdfbox.multipdf.PDFMergerUtility;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.rendering.PDFRenderer;
-import org.apache.pdfbox.text.PDFTextStripper;
 import com.aspose.pdf.*; // Aspose PDF library import
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Scanner;
-
 import java.io.File;
 import java.util.Scanner;
 
-class ConvertPDFToMarkdown {
+public class ConvertPDFToCSV {
     public static void convertOperation(Scanner scanner) {
         System.out.print("Enter the path of the PDF file: ");
         String pdfFilePath = scanner.nextLine();
 
-        System.out.print("Enter the output directory for the Markdown file: ");
+        System.out.print("Enter the output directory for the CSV file: ");
         String outputDirectory = scanner.nextLine();
 
         File pdfFile = new File(pdfFilePath);
@@ -42,12 +28,13 @@ class ConvertPDFToMarkdown {
         try {
             String outputFileName;
             try (Document pdfDocument = new Document(pdfFilePath)) {
-                outputFileName = outputDirectory + File.separator + "output.md";
+                outputFileName = outputDirectory + File.separator + "output.csv";
                 pdfDocument.save(outputFileName, SaveFormat.Markdown);
             }
-            System.out.println("PDF successfully converted to Markdown: " + outputFileName);
+            System.out.println("PDF successfully converted to CSV: " + outputFileName);
         } catch (Exception e) {
-            System.err.println("An error occurred while converting PDF to Markdown: " + e.getMessage());
+            System.err.println("An error occurred while converting PDF to CSV: " + e.getMessage());
         }
     }
 }
+

@@ -1,4 +1,4 @@
-package com.gagan.pdf;
+package com.gagan.operation;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-class ExtractPages {
+public class ExtractPages {
     public static void extractOperation(Scanner scanner) {
         System.out.print("Enter the path of the PDF file: ");
         String pdfFilePath = scanner.nextLine();

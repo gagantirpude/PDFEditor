@@ -1,4 +1,4 @@
-package com.gagan.pdf;
+package com.gagan.operation;
 
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 
@@ -68,7 +68,7 @@ import java.util.Scanner;
 
 
 
-class MergePDF {
+public class MergePDF {
     public static void mergeOperation(Scanner scanner) {
         List<String> pdfFiles = new ArrayList<>();
 

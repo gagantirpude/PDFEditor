@@ -1,4 +1,4 @@
-package com.gagan.pdf;
+package com.gagan.operation;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-class SplitPDF {
+public class SplitPDF {
     public static void splitOperation(Scanner scanner) {
         System.out.print("Enter the path of the PDF file to split: ");
         String pdfFilePath = scanner.nextLine();
