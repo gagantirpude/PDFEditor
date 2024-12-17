@@ -27,9 +27,11 @@ public class ConvertPDFToXLSX {
         }
 
         try {
-            Document pdfDocument = new Document(pdfFilePath);
-            String outputFileName = outputDirectory + File.separator + "output.xlsx";
-            pdfDocument.save(outputFileName, SaveFormat.Excel);
+            String outputFileName;
+            try (Document pdfDocument = new Document(pdfFilePath)) {
+                outputFileName = outputDirectory + File.separator + "output.xlsx";
+                pdfDocument.save(outputFileName, SaveFormat.Excel);
+            }
             System.out.println("PDF successfully converted to XLSX: " + outputFileName);
         } catch (Exception e) {
             System.err.println("An error occurred while converting PDF to XLSX: " + e.getMessage());

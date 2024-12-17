@@ -1,19 +1,11 @@
-package com.gagan.operation;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Scanner;
-
-import org.apache.pdfbox.multipdf.PDFMergerUtility;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
-import com.aspose.pdf.*; //
-
+package com.gagan.test;
 
 import com.aspose.pdf.DocSaveOptions;
 
-
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
 
 
 
@@ -252,8 +244,9 @@ public class Demo {
         DocSaveOptions saveOptions = new DocSaveOptions();
         saveOptions.setMode(DocSaveOptions.RecognitionMode.Flow); // Recognize flow of content
         saveOptions.setFormat(DocSaveOptions.DocFormat.DocX);     // Save as DOCX
-        saveOptions.setPreserveFontSize(true);                   // Preserve font sizes
-        saveOptions.setPreserveTableLayout(true);                // Preserve table layout
+//        saveOptions.setPreserveFontSize(true);                   // Preserve font sizes
+//        saveOptions.setReSaveFonts(true);                   // Preserve font sizes
+//        saveOptions.setPreserveTableLayout(true);                // Preserve table layout
         saveOptions.setRecognizeBullets(true);                   // Recognize bullet lists
 
         // Save the document

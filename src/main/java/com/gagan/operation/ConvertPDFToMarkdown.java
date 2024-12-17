@@ -1,7 +1,6 @@
 package com.gagan.operation;
 
 import com.aspose.pdf.*; // Aspose PDF library import
-
 import java.io.File;
 import java.util.Scanner;
 
@@ -29,8 +28,8 @@ public class ConvertPDFToMarkdown {
         try {
             String outputFileName;
             try (Document pdfDocument = new Document(pdfFilePath)) {
-                outputFileName = outputDirectory + File.separator + "output.md";
-                pdfDocument.save(outputFileName, SaveFormat.Markdown);
+                outputFileName = outputDirectory + File.separator + "output.xps";
+                pdfDocument.save(outputFileName, SaveFormat.Xps);
             }
             System.out.println("PDF successfully converted to Markdown: " + outputFileName);
         } catch (Exception e) {

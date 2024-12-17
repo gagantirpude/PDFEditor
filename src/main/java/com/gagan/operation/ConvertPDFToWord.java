@@ -1,49 +1,104 @@
 package com.gagan.operation;
 
+import com.aspose.pdf.Document;
+import com.aspose.pdf.SaveFormat;
+import com.gagan.main.Main;
+import com.gagan.utils.*;
+
 import java.io.File;
 import java.util.Scanner;
 
 public class ConvertPDFToWord {
+
     public static void convertOperation(Scanner scanner) {
-        System.out.print("Enter the path of the PDF file to convert: ");
-        String pdfFilePath = scanner.nextLine();
+        while (true) {
+            try {
+                // Step 1: Input PDF file path
+                System.out.print("Enter the path of the PDF file to convert (or 'exit' to return): ");
+                String pdfFilePath = scanner.nextLine();
+                if (pdfFilePath.equalsIgnoreCase("exit")) return;
 
-        File pdfFile = new File(pdfFilePath);
-        if (!pdfFile.exists() || !pdfFile.isFile()) {
-            System.out.println("Invalid PDF file path. Exiting.");
-            return;
-        }
+                // Validate file existence and type
+                if (!FileChecker.checkFileExists(pdfFilePath) || !FileChecker.checkFileType(pdfFilePath, "pdf")) {
+                    System.out.println("Invalid PDF file. Please try again.");
+                    continue;
+                }
 
-        System.out.print("Enter the output directory for the Word file: ");
-        String outputDirectory = scanner.nextLine();
+                // Retrieve total page count
+                int totalPages = PDFUtils.getAsposePDFPageCount(pdfFilePath);
+                if (totalPages <= 0) {
+                    System.out.println("The selected PDF file has no pages or could not be read. Operation aborted.");
+                    continue;
+                }
 
-        File directory = new File(outputDirectory);
-        if (!directory.exists() || !directory.isDirectory()) {
-            System.out.println("Invalid directory. Exiting.");
-            return;
-        }
+                System.out.println("The selected PDF contains " + totalPages + " page(s).");
 
-        System.out.print("Enter the output Word file name (including .docx extension): ");
-        String wordFileName = scanner.nextLine();
-        String extension = ".docx";
-        String wordFilePath = new File(directory, wordFileName+extension).getAbsolutePath();
+                // Step 2: Display estimated time
+                TimeEstimator.displayEstimatedTime(totalPages);
 
-        try {
-            convertPDFToWordWithStyle(pdfFilePath, wordFilePath);
-            System.out.println("PDF converted to Word successfully with styles preserved at " + wordFilePath);
-        } catch (Exception e) {
-            System.err.println("An error occurred while converting PDF to Word: " + e.getMessage());
+                // Step 3: Output directory and file name
+                System.out.print("Enter the output directory for the Word file (or 'exit' to return): ");
+                String outputDirectory = scanner.nextLine();
+                if (outputDirectory.equalsIgnoreCase("exit")) return;
+
+                if (!FileChecker.checkDirectoryExists(outputDirectory)) {
+                    System.out.println("Invalid output directory. Please try again.");
+                    continue;
+                }
+
+                System.out.print("Enter the output Word file name (without extension): ");
+                String wordFileName = scanner.nextLine();
+                wordFileName = FileChecker.ensureFileExtension(wordFileName, "docx");
+                String wordFilePath = new File(outputDirectory, wordFileName).getAbsolutePath();
+
+                System.out.println("Starting conversion...");
+                System.out.println("Converting PDF: " + pdfFilePath);
+                System.out.println("Output Word file will be saved at: " + wordFilePath);
+
+                // Step 4: Convert PDF to Word
+                if (totalPages < 4) {
+                    convertSmallPDFToWord(pdfFilePath, wordFilePath, totalPages);
+                } else {
+                    convertLargePDFToWord(pdfFilePath, wordFilePath, totalPages);
+                }
+
+                System.out.println("[" + TimestampUtil.getCurrentTimestamp() + "] PDF converted to Word successfully at: " + wordFilePath);
+
+                // Step 5: Post-operation menu
+                PostOperationMenu.display(scanner, () -> convertOperation(scanner), () -> Main.main(new String[0]));
+                return;
+
+            } catch (Exception e) {
+                System.err.println("An error occurred: " + e.getMessage());
+            }
         }
     }
 
-    public static void convertPDFToWordWithStyle(String pdfFilePath, String wordFilePath) throws Exception {
-        // Initialize the Aspose library (ensure  .PDF for Java is added to your dependencies)
-        com.aspose.pdf.Document pdfDocument = new com.aspose.pdf.Document(pdfFilePath);
+    private static void convertSmallPDFToWord(String pdfFilePath, String wordFilePath, int totalPages) throws Exception {
+        ProgressBar.startProgressBar("Converting Small PDF to Word", totalPages);
 
-        // Convert PDF to Word with flow layout to preserve styles
-        pdfDocument.save(wordFilePath, com.aspose.pdf.SaveFormat.DocX);
+        try (Document pdfDocument = new Document(pdfFilePath)) {
+            for (int currentPage = 1; currentPage <= totalPages; currentPage++) {
+                // Simulate processing
+                ProgressBar.updateProgressBar(currentPage);
+                System.out.println("Processed page " + currentPage + " of " + totalPages);
+                Thread.sleep(200); // Simulated delay (remove in production)
+            }
+            pdfDocument.save(wordFilePath, SaveFormat.DocX);
+        }
 
-        // Clean up resources
-        pdfDocument.close();
+        ProgressBar.completeProgressBar();
+    }
+
+    private static void convertLargePDFToWord(String pdfFilePath, String wordFilePath, int totalPages) throws Exception {
+        ProgressBar.startProgressBar("Converting Large PDF to Word", 1);
+
+        try (Document pdfDocument = new Document(pdfFilePath)) {
+            Thread.sleep(100L * totalPages); // Simulated delay (remove in production)
+            pdfDocument.save(wordFilePath, SaveFormat.DocX);
+        }
+
+        ProgressBar.updateProgressBar(1);
+        ProgressBar.completeProgressBar();
     }
 }

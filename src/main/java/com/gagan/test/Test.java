@@ -1,11 +1,7 @@
-package com.gagan.operation;
+package com.gagan.test;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
-
-import static com.gagan.utils.TimeStamp.myTimeStamp;
 
 public class Test {
     public static void convertOperation(Scanner scanner) {
@@ -44,7 +40,7 @@ public class Test {
 
 
             //called Time stamp
-            myTimeStamp();
+//            myTimeStamp();
 
         } catch (Exception e) {
             System.err.println("An error occurred while converting PDF to Word: " + e.getMessage());

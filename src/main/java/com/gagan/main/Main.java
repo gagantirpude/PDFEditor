@@ -1,6 +1,9 @@
 package com.gagan.main;
 
 import com.gagan.operation.*;
+import com.gagan.test.Demo;
+import com.gagan.test.Test;
+
 import java.util.Scanner;
 
 public class Main {
@@ -8,7 +11,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Entry Checking Loops
         while (true) {
             System.out.println("\nPDF Editor Options:");
             System.out.println("0. Testing");
@@ -21,19 +23,26 @@ public class Main {
             System.out.println("7. Convert PDF to PPTX");
             System.out.println("8. Convert PDF to XLSX");
             System.out.println("9. Convert PDF to CSV");
-            System.out.println("10. Convert PDF to TXT");
+            System.out.println("10. Convert PDF to XML");
             System.out.println("11. Convert PDF to LaTex");
             System.out.println("12. Convert PDF to EPUB");
             System.out.println("13. Convert PDF to Markdown");
             System.out.println("14. Convert PDF to Text");
             System.out.println("15. Demo");
             System.out.println("16. Exit");
+
             System.out.print("Choose an option: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("exit")) {
+                System.out.println("Exiting PDF Editor. Goodbye!");
+                return;
+            }
 
-            switch (choice) {
+            try {
+                int choice = Integer.parseInt(input);
+
+                switch (choice) {
                 case 0:
                     Test.convertOperation(scanner);
                     break;
@@ -87,6 +96,9 @@ public class Main {
                     return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
+            }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number between 0 and 16, or 'exit' to quit.");
             }
         }
     }

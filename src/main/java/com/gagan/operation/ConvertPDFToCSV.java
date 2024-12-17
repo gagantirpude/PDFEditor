@@ -28,8 +28,8 @@ public class ConvertPDFToCSV {
         try {
             String outputFileName;
             try (Document pdfDocument = new Document(pdfFilePath)) {
-                outputFileName = outputDirectory + File.separator + "output.csv";
-                pdfDocument.save(outputFileName, SaveFormat.Markdown);
+                outputFileName = outputDirectory + File.separator + "output.Svg";
+                pdfDocument.save(outputFileName, SaveFormat.Svg);
             }
             System.out.println("PDF successfully converted to CSV: " + outputFileName);
         } catch (Exception e) {
